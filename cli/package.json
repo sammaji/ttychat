@@ -1,0 +1,49 @@
+{
+	"name": "ttychat",
+	"version": "0.0.0",
+	"description": "A simple npm package to chat with your friends, in your terminal.",
+	"author": "Samyabrata Maji <samyabratamaji334@gmail.com>",
+	"keywords": [
+		"chat",
+		"terminal",
+		"cli"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"bin": {
+		"cli": "dist/index.js"
+	},
+	"files": [
+		"dist/**/*",
+		"!dist/**/*.test.js"
+	],
+	"scripts": {
+		"dev": "ts-node ./src/index.ts",
+		"clean": "rimraf ./dist/",
+		"build": "tsup src/index.ts --format cjs,esm --dts --minify",
+		"release": "pnpm build && pnpm changeset publish"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^2.27.5",
+		"@types/node": "^20.14.2",
+		"@types/terminal-kit": "^2.5.6",
+		"pkg": "^5.8.1",
+		"rimraf": "^5.0.7",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.2"
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^5.1.0",
+		"commander": "^2.20.0",
+		"generate-unique-id": "^2.0.3",
+		"picocolors": "^1.0.1",
+		"react": "^18.3.1",
+		"socket.io-client": "^4.7.5",
+		"terminal-kit": "^3.1.1",
+		"tsup": "^8.1.0"
+	}
+}
