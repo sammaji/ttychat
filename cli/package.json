@@ -1,6 +1,6 @@
 {
 	"name": "ttychat",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "A simple npm package to chat with your friends, in your terminal.",
 	"author": "Samyabrata Maji <samyabratamaji334@gmail.com>",
 	"keywords": [

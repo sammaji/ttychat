@@ -1,5 +1,11 @@
 # ttychat
 
+## 1.2.2
+
+### Patch Changes
+
+- 45d30ab: - Fix connection problem.
+
 ## 1.2.1
 
 ### Patch Changes
