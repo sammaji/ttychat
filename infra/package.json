@@ -1,0 +1,19 @@
+{
+  "name": "ttychat-server-infra",
+  "description": "build docker images from docker file locally, tag it and publish it to artifact repository. use the artifact in cloud run v2. in the cloud run, allow unauthenticated invocation requests, add min instances to 1, max to 5, set container port to 3000, u",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "iam": "gcloud iam roles create pulumi_admin_role --file='./roles.gcp.yml' --project=term-ai-427821",
+    "iam:update": "gcloud iam roles update pulumi_admin_role --file='./roles.gcp.yml' --project=term-ai-427821"
+  },
+  "author": "",
+  "dependencies": {
+    "@pulumi/docker": "4.4.3",
+    "@pulumi/gcp": "7.8.0",
+    "@pulumi/pulumi": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9"
+  }
+}

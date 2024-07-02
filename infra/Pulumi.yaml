@@ -1,0 +1,9 @@
+name: ttychat-server-infra
+runtime:
+  name: nodejs
+  options:
+    packagemanager: pnpm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: https://www.pulumi.com/ai/api/project/364b688b-50f7-4200-8c84-0e0dce1001be.zip
