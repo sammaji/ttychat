@@ -1,5 +1,11 @@
 # ttychat
 
+## 1.2.1
+
+### Patch Changes
+
+- 0c36d6c: - Hardcoded production socket URL.
+
 ## 1.2.0
 
 ### Minor Changes
