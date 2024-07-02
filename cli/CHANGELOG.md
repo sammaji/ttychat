@@ -1,5 +1,12 @@
 # ttychat
 
+## 2.0.0
+
+### Major Changes
+
+- a53af3d: - Persistent data storage. No backups.
+  - Username is uniquer. No room can have two users with the same username.
+
 ## 1.0.0
 
 ### Major Changes
