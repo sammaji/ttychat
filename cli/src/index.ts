@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config()
 
-const socketUrl = process.env.NODE_ENV === "production" ? process.env.SOCKET_URL : process.env.SOCKET_DEV_URL;
+const socketUrl = process.env.NODE_ENV === "production" ? "https://ttychat-server-service-bwvgjyky6q-el.a.run.app" : process.env.SOCKET_DEV_URL;
 if (!socketUrl) throw new Error("SOCKET_URL or SOCKET_DEV_URL env variable is not set");
 
 const socket = io(socketUrl);
