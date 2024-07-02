@@ -2,9 +2,11 @@ import generateUniqueId from "generate-unique-id";
 import pico from "picocolors";
 import { io } from "socket.io-client";
 import { terminal } from "terminal-kit";
-import { input } from '@inquirer/prompts';
+import dotenv from "dotenv";
 
-const socket = io("https://cli-chat-ihic.onrender.com");
+dotenv.config()
+
+const socket = io(process.env.SOCKET_URL);
 
 type Log = { message: string };
 
@@ -107,7 +109,7 @@ async function promptRoomCreate(logs: Log[] = []) {
 }
 
 async function chatPrompt(username: string, roomId: string) {
-	let message = await input({message: "fd@name>", theme: {prefix: null}, validate: (value) => !value.startsWith("user_")})
+	let message = await (terminal.inputField({ cancelable: true, default: "" }).promise)
 
 	message = message.trim()
 	if (message === ":quit" || message === ":q") {
@@ -144,7 +146,7 @@ async function render(logs: Log[], props: RenderProps) {
 		console.log(log.message);
 	});
 
-	// terminal(`${pico.green(currUsername)}@${pico.magenta(roomId)}> `);
+	terminal(`${pico.green(currUsername)}@${pico.magenta(roomId)}> `);
 	if (username === currUsername) {
 		chatPrompt(currUsername, currRoomId);
 	}
