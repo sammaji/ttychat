@@ -1,5 +1,5 @@
 ---
-"ttychat": major
+"ttychat": minor
 ---
 
 - Persistent data storage. No backups.
