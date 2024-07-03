@@ -17,6 +17,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      enquirer:
+        specifier: ^2.4.1
+        version: 2.4.1
       generate-unique-id:
         specifier: ^2.0.3
         version: 2.0.3
