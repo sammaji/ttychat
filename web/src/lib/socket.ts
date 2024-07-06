@@ -1,7 +1,8 @@
 import { io  } from "socket.io-client";
 
 const socketSingleton = () => {
-    return io("http://localhost:3000");
+    if (typeof process.env.NEXT_PUBLIC_SOCKET_URL === "undefined") throw new Error("NEXT_PUBLIC_SOCKET_URL env variable is not set")
+    return io(process.env.NEXT_PUBLIC_SOCKET_URL)
 }
 
 type SocketSingleton = ReturnType<typeof socketSingleton>;
@@ -12,5 +13,4 @@ export const socket = globalForSocket.socket ?? socketSingleton()
 
 export default socket
 
-// if (process.env.NODE_ENV !== "development") globalForSocket.socket = socket
 globalForSocket.socket = socket
