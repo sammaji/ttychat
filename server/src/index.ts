@@ -6,6 +6,7 @@ import cors from "cors"
 import { Redis } from "ioredis";
 import dotenv from "dotenv";
 import logger from "logger";
+import { nanoid } from "nanoid";
 
 dotenv.config()
 
@@ -47,12 +48,12 @@ io.on("connection", (socket) => {
     logger.info({event: "create:room", message: message})
 
     const doesRoomExist = await redis.sismember("rooms", message.roomId)
-    if (doesRoomExist === 1) return socket.emit("error", { message: "Room already exist." })
+    if (doesRoomExist === 1) return socket.emit("error", { message: "Room already exist.", uid: nanoid(32) })
     
     const roomStatus = await redis.sadd("rooms", message.roomId)
     const memStatus = await redis.sadd("members", message.roomId + "::" + message.username)
     
-    if (roomStatus === 0 || memStatus === 0) return socket.emit("error", { message: "Room creation failed." })
+    if (roomStatus === 0 || memStatus === 0) return socket.emit("error", { message: "Room creation failed.", uid: nanoid(32) })
 
     socket.join(message.roomId)
     io.sockets.in(message.roomId).emit("create:room:success", message)
@@ -63,36 +64,36 @@ io.on("connection", (socket) => {
     logger.info({event: "add:member", message: message})
 
     const doesRoomExist = await redis.sismember("rooms", message.roomId)
-    if (doesRoomExist === 0) return socket.emit("error", { message: "Room does not exist." })
+    if (doesRoomExist === 0) return socket.emit("error", { message: "Room does not exist.", uid: nanoid(32) })
 
     const doesMemExist = await redis.sismember("members", message.roomId + "::" + message.username)
-    if (doesMemExist === 1) return socket.emit("error", { message: "Username already exists, please choose another username." })
+    if (doesMemExist === 1) return socket.emit("error", { message: "Username already exists, please choose another username.", uid: nanoid(32) })
 
     // members.add(message.roomId + "::" + message.username)
     const memStatus = await redis.sadd("members", message.roomId + "::" + message.username)
-    if (memStatus === 0) return socket.emit("error", { message: "User creation failed." })
+    if (memStatus === 0) return socket.emit("error", { message: "User creation failed.", uid: nanoid(32) })
 
     socket.join(message.roomId)
-    io.sockets.in(message.roomId).emit("add:member:success", message)
+    io.sockets.in(message.roomId).emit("add:member:success", {...message, uid: nanoid(32)})
   })
 
   socket.on("remove:member", async (message) => {
     logger.info({event: "remove:member", message: message})
 
     const doesRoomExist = await redis.sismember("rooms", message.roomId)
-    if (doesRoomExist === 0) return socket.emit("error", { message: "Room does not exist." })
+    if (doesRoomExist === 0) return socket.emit("error", { message: "Room does not exist.", uid: nanoid(32) })
 
     await redis.srem("members", message.roomId + "::" + message.username)
 
     socket.leave(message.roomId)
-    io.sockets.in(message.roomId).emit("remove:member:success", message)
+    io.sockets.in(message.roomId).emit("remove:member:success", {...message, uid: nanoid(32)})
   })
 
   socket.on("create:chat", (message) => {
-    logger.info({event: "create:chat", message: message})
+    logger.info({event: "create:chat", message: message, uid: nanoid(32)})
 
     redis.lpush("chat::" + message.roomId, message.username + "::" + message.message)
-    io.sockets.in(message.roomId).emit("create:chat:success", message)
+    io.sockets.in(message.roomId).emit("create:chat:success", {...message, uid: nanoid(32)})
   })
 });
 
