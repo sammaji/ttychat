@@ -5,6 +5,7 @@ import { createServer } from "http"
 import cors from "cors"
 import { Redis } from "ioredis";
 import dotenv from "dotenv";
+import logger from "logger";
 
 dotenv.config()
 
@@ -37,13 +38,13 @@ const redis = new Redis(process.env.REDIS_URL);
 redis.on("connect", () => console.log("Redis connected"))
 redis.on("error", console.log)
 
-io.engine.on("connection_error", console.log)
+io.engine.on("connection_error", (error) => logger.error({ event: "connection_error", error }))
 
 io.on("connection", (socket) => {
-  console.log("SOCKET: new connection with id", socket.id);
+  logger.info({event: "new_connection", socketId: socket.id})
 
   socket.on("create:room", async (message) => {
-    console.log("create:room", message)
+    logger.info({event: "create:room", message: message})
 
     const doesRoomExist = await redis.sismember("rooms", message.roomId)
     if (doesRoomExist === 1) return socket.emit("error", { message: "Room already exist." })
@@ -59,8 +60,9 @@ io.on("connection", (socket) => {
   })
 
   socket.on("add:member", async (message) => {
+    logger.info({event: "add:member", message: message})
+
     const doesRoomExist = await redis.sismember("rooms", message.roomId)
-    console.log("room -> ", doesRoomExist)
     if (doesRoomExist === 0) return socket.emit("error", { message: "Room does not exist." })
 
     const doesMemExist = await redis.sismember("members", message.roomId + "::" + message.username)
@@ -75,6 +77,8 @@ io.on("connection", (socket) => {
   })
 
   socket.on("remove:member", async (message) => {
+    logger.info({event: "remove:member", message: message})
+
     const doesRoomExist = await redis.sismember("rooms", message.roomId)
     if (doesRoomExist === 0) return socket.emit("error", { message: "Room does not exist." })
 
@@ -85,7 +89,8 @@ io.on("connection", (socket) => {
   })
 
   socket.on("create:chat", (message) => {
-    console.log(message)
+    logger.info({event: "create:chat", message: message})
+
     redis.lpush("chat::" + message.roomId, message.username + "::" + message.message)
     io.sockets.in(message.roomId).emit("create:chat:success", message)
   })
