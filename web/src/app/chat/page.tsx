@@ -17,13 +17,15 @@ import React, { useEffect, useRef } from "react";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
-import socket from "@/lib/socket";
 import { io } from "socket.io-client";
 
 type ChatBubble = {
   username?: string;
   message: React.ReactNode | string;
 };
+
+if (!process.env.NEXT_PUBLIC_SOCKET_URL) throw new Error("NEXT_PUBLIC_SOCKET_URL env variable is not set")
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
 
 function ChatBubbleRecieved({ message, username }: ChatBubble) {
   return (
@@ -193,7 +195,7 @@ export default function Home() {
       alert(error);
       setStatus("disconnected");
     });
-  }, [logs]);
+  }, []);
 
   const {
     reset,
