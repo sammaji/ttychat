@@ -1,5 +1,12 @@
 # ttychat
 
+## 1.2.3
+
+### Patch Changes
+
+- b5e037c: - UI changes.
+  - Migrated from term-kit to inquirer.
+
 ## 1.2.2
 
 ### Patch Changes
