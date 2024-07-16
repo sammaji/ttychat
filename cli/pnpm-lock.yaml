@@ -12,7 +12,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       commander:
-        specifier: ^2.20.0
+        specifier: ^2.20.3
         version: 2.20.3
       dotenv:
         specifier: ^16.4.5
@@ -38,6 +38,9 @@ importers:
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(ts-node@10.9.2(@types/node@20.14.2)(typescript@5.5.2))(typescript@5.5.2)
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.5
@@ -51,6 +54,9 @@ importers:
       pkg:
         specifier: ^5.8.1
         version: 5.8.1
+      prettier:
+        specifier: ^3.3.3
+        version: 3.3.3
       rimraf:
         specifier: ^5.0.7
         version: 5.0.7
@@ -1566,6 +1572,11 @@ packages:
   prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
+    hasBin: true
+
+  prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+    engines: {node: '>=14'}
     hasBin: true
 
   process-nextick-args@2.0.1:
@@ -3752,6 +3763,8 @@ snapshots:
       which-pm: 2.0.0
 
   prettier@2.8.8: {}
+
+  prettier@3.3.3: {}
 
   process-nextick-args@2.0.1: {}
 

@@ -1,0 +1,11 @@
+{
+    "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prettierrc.json",
+    "useTabs": false,
+    "tabWidth": 4,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "semi": true,
+    "singleQuote": false,
+    "jsxSingleQuote": false,
+    "trailingComma": "es5"
+}
